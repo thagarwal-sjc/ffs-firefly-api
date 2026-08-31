@@ -2599,6 +2599,416 @@
           }
         }
       }
+    },
+    "/v4/images/expand": {
+      "post": {
+        "operationId": "expandImagesV4",
+        "summary": "Expand image (v4)",
+        "description": "Change the aspect ratio or size of an image to expand it. Optionally, provide a text prompt to generate additional imagery for the expansion.\n\n**Note:** unlike `/v3/images/expand-async`, this endpoint does **not** have an `-async` suffix -- `POST /v4/images/expand-async` is not a valid route and returns 404. This is the only v4 path for this operation, and it is always asynchronous (submit, then poll for the result).",
+        "tags": [
+          "Common Operations"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExpandImageRequestV4"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted. The job has been queued for processing.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncAcceptResponseV4"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "bad_request": {
+                    "value": {
+                      "error_code": "bad_request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "unauthorized": {
+                    "value": {
+                      "error_code": "unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "access_error": {
+                    "value": {
+                      "error_code": "access_error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Request Entity Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "too_large": {
+                    "value": {
+                      "error_code": "request_entity_too_large"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "invalid_content_type": {
+                    "value": {
+                      "error_code": "invalid_content_type"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "validation_error": {
+                    "value": {
+                      "error_code": "validation_error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "rate_limited": {
+                    "value": {
+                      "error_code": "rate_limited"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "runtime_error": {
+                    "value": {
+                      "error_code": "runtime_error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v4/images/fill": {
+      "post": {
+        "operationId": "fillImagesV4",
+        "summary": "Fill image (v4)",
+        "description": "Generatively fill a masked region of an image. Optionally, provide a text prompt to guide the fill.\n\n**Note:** unlike `/v3/images/fill-async`, this endpoint does **not** have an `-async` suffix -- `POST /v4/images/fill-async` is not a valid route and returns 404. This is the only v4 path for this operation, and it is always asynchronous (submit, then poll for the result).",
+        "tags": [
+          "Common Operations"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FillImageRequestV4"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted. The job has been queued for processing.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncAcceptResponseV4"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "bad_request": {
+                    "value": {
+                      "error_code": "bad_request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "unauthorized": {
+                    "value": {
+                      "error_code": "unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "access_error": {
+                    "value": {
+                      "error_code": "access_error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Request Entity Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "too_large": {
+                    "value": {
+                      "error_code": "request_entity_too_large"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "invalid_content_type": {
+                    "value": {
+                      "error_code": "invalid_content_type"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "validation_error": {
+                    "value": {
+                      "error_code": "validation_error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "rate_limited": {
+                    "value": {
+                      "error_code": "rate_limited"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "runtime_error": {
+                    "value": {
+                      "error_code": "runtime_error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jobs/result/{jobId}": {
+      "get": {
+        "operationId": "getV4JobResult",
+        "summary": "Get v4 job result",
+        "description": "Poll for the result of a job submitted via `/v4/images/expand` or `/v4/images/fill`.\n\n**Important:** always call the URL returned in the submit response's `links.result.url` (or `.href`) field -- do not construct this URL yourself against `firefly-api.adobe.io`. The submit response redirects polling to a per-organization gateway host (e.g. `https://firefly-epo<org-id>.adobe.io/...`), which differs from the host you submitted the job to and from `statusUrl`, and is the only host that will resolve. `statusUrl` is provided for informational purposes only and should not be polled directly.\n\nWhile the job is still processing, this returns `200` with a JSON body whose `status` field is `IN_PROGRESS`. Once complete, it returns `200` with the actual result body (no `status` field present).",
+        "tags": [
+          "Common Operations"
+        ],
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The job ID returned by the submit call."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Either the still-processing envelope, or the completed job result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AsyncAcceptResponseV4"
+                    },
+                    {
+                      "$ref": "#/components/schemas/JobResultResponseV4"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown job ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "unknown_job_id": {
+                    "value": {
+                      "error_code": "unknown_job_id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "examples": {
+                  "runtime_error": {
+                    "value": {
+                      "error_code": "runtime_error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -4945,6 +5355,327 @@
           }
         },
         "title": "ErrorBody"
+      },
+      "PublicBinaryInputV4": {
+        "type": "object",
+        "title": "PublicBinaryInputV4",
+        "description": "Reference to an image/mask, either previously uploaded or hosted at a pre-signed URL. Provide exactly one of `id` or `presignedUrl`.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid4",
+            "description": "The `uploadId` returned from `POST /v2/storage/image`."
+          },
+          "presignedUrl": {
+            "type": "string",
+            "format": "uri",
+            "maxLength": 4096,
+            "minLength": 1,
+            "description": "A pre-signed URL Firefly can fetch the asset from directly. Expires in one hour."
+          }
+        }
+      },
+      "ImageV4": {
+        "type": "object",
+        "title": "ImageV4",
+        "required": [
+          "source"
+        ],
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/PublicBinaryInputV4",
+            "description": "Image source"
+          }
+        }
+      },
+      "InputV4": {
+        "type": "object",
+        "title": "InputV4",
+        "required": [
+          "image"
+        ],
+        "properties": {
+          "image": {
+            "$ref": "#/components/schemas/ImageV4",
+            "description": "Input image"
+          },
+          "mask": {
+            "$ref": "#/components/schemas/ImageV4",
+            "description": "Input mask"
+          }
+        }
+      },
+      "OutputFormatV4": {
+        "type": "string",
+        "title": "OutputFormatV4",
+        "enum": [
+          "png",
+          "jpeg",
+          "webp",
+          "jxl"
+        ]
+      },
+      "OutputV4": {
+        "type": "object",
+        "title": "OutputV4",
+        "properties": {
+          "format": {
+            "$ref": "#/components/schemas/OutputFormatV4",
+            "default": "png",
+            "description": "Image output format"
+          }
+        }
+      },
+      "ExpandImageRequestV4": {
+        "type": "object",
+        "title": "ExpandImageRequestV4",
+        "required": [
+          "input"
+        ],
+        "properties": {
+          "input": {
+            "$ref": "#/components/schemas/InputV4",
+            "description": "Input image and mask to expand"
+          },
+          "embedContentCredentials": {
+            "type": "boolean",
+            "default": false,
+            "description": "When true, applies CAI/C2PA signing to output images."
+          },
+          "prompt": {
+            "type": "string",
+            "default": "",
+            "description": "User prompt"
+          },
+          "seeds": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "minItems": 1,
+            "maxItems": 4,
+            "default": [
+              333
+            ],
+            "description": "The seed of each variation."
+          },
+          "preserveBackground": {
+            "type": "boolean",
+            "default": false,
+            "description": "Preserve Background"
+          },
+          "enablePromptAnalysis": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable prompt analysis"
+          },
+          "output": {
+            "$ref": "#/components/schemas/OutputV4",
+            "description": "Output formats"
+          },
+          "mpRangeForInference": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "default": [
+              4,
+              4
+            ],
+            "description": "MP range for inference"
+          },
+          "cropScale": {
+            "type": "number",
+            "default": 16.0,
+            "description": "Crop scale for inference"
+          },
+          "fastMode": {
+            "type": "boolean",
+            "default": true,
+            "description": "Fast mode"
+          },
+          "enhancePixelComposite": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable genexpand-only pixel-composite resize and decode enhancements"
+          }
+        }
+      },
+      "FillImageRequestV4": {
+        "type": "object",
+        "title": "FillImageRequestV4",
+        "required": [
+          "input"
+        ],
+        "properties": {
+          "input": {
+            "$ref": "#/components/schemas/InputV4",
+            "description": "Input image and mask to fill"
+          },
+          "embedContentCredentials": {
+            "type": "boolean",
+            "default": false,
+            "description": "When true, applies CAI/C2PA signing to output images."
+          },
+          "prompt": {
+            "type": "string",
+            "default": "",
+            "description": "User prompt"
+          },
+          "seeds": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "minItems": 1,
+            "maxItems": 4,
+            "default": [
+              333
+            ],
+            "description": "The seed of each variation."
+          },
+          "preserveBackground": {
+            "type": "boolean",
+            "default": false,
+            "description": "Preserve Background"
+          },
+          "enablePromptAnalysis": {
+            "type": "boolean",
+            "default": true,
+            "description": "Enable prompt analysis"
+          },
+          "output": {
+            "$ref": "#/components/schemas/OutputV4",
+            "description": "Output formats"
+          },
+          "mpRangeForInference": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "default": [
+              4,
+              4
+            ],
+            "description": "MP range for inference"
+          },
+          "cropScale": {
+            "type": "number",
+            "default": 16.0,
+            "description": "Crop scale"
+          },
+          "fastMode": {
+            "type": "boolean",
+            "default": true,
+            "description": "Fast mode"
+          },
+          "enableDispatch": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable dispatch"
+          }
+        }
+      },
+      "AsyncTaskLinkV4": {
+        "type": "object",
+        "title": "AsyncTaskLinkV4",
+        "required": [
+          "url",
+          "href"
+        ],
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          }
+        }
+      },
+      "AsyncAcceptResponseV4": {
+        "type": "object",
+        "title": "AsyncAcceptResponseV4",
+        "description": "Returned immediately on submit (202), and again while the job is still processing (200) if you poll `links.result.url`.",
+        "required": [
+          "jobId",
+          "statusUrl",
+          "links",
+          "status"
+        ],
+        "properties": {
+          "jobId": {
+            "type": "string",
+            "description": "The ID of the job."
+          },
+          "statusUrl": {
+            "type": "string",
+            "description": "Informational status URL. Prefer `links.result.url` for polling -- see note below."
+          },
+          "links": {
+            "type": "object",
+            "properties": {
+              "cancel": {
+                "$ref": "#/components/schemas/AsyncTaskLinkV4"
+              },
+              "result": {
+                "$ref": "#/components/schemas/AsyncTaskLinkV4"
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACCEPTED",
+              "IN_PROGRESS"
+            ]
+          }
+        }
+      },
+      "PublicBinaryOutputV4": {
+        "type": "object",
+        "title": "PublicBinaryOutputV4",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid4",
+            "description": "Internal storage ID for the output image."
+          },
+          "presignedUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Pre-signed URL to download the output image. Expires in one hour."
+          }
+        }
+      },
+      "OutputImageV4": {
+        "type": "object",
+        "title": "OutputImageV4",
+        "properties": {
+          "seed": {
+            "type": "integer",
+            "description": "The seed used for this generation."
+          },
+          "image": {
+            "$ref": "#/components/schemas/PublicBinaryOutputV4"
+          }
+        }
+      },
+      "JobResultResponseV4": {
+        "type": "object",
+        "title": "JobResultResponseV4",
+        "description": "Returned once the job has completed successfully.",
+        "properties": {
+          "version": {
+            "type": "string",
+            "example": "v1.0.0"
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OutputImageV4"
+            }
+          }
+        }
       }
     },
     "securitySchemes": {
