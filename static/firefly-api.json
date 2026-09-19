@@ -2942,7 +2942,7 @@
         "summary": "Get v4 job result",
         "description": "Poll for the result of a job submitted via `/v4/images/expand` or `/v4/images/fill`.\n\n**Important:** always call the URL returned in the submit response's `links.result.url` (or `.href`) field -- do not construct this URL yourself against `firefly-api.adobe.io`. The submit response redirects polling to a per-organization gateway host (e.g. `https://firefly-epo<org-id>.adobe.io/...`), which differs from the host you submitted the job to and from `statusUrl`, and is the only host that will resolve. `statusUrl` is provided for informational purposes only and should not be polled directly.\n\nWhile the job is still processing, this returns `200` with a JSON body whose `status` field is `IN_PROGRESS`. Once complete, it returns `200` with the actual result body (no `status` field present).",
         "tags": [
-          "Common Operations"
+          "Manage jobs"
         ],
         "parameters": [
           {
@@ -5615,10 +5615,20 @@
             "type": "object",
             "properties": {
               "cancel": {
-                "$ref": "#/components/schemas/AsyncTaskLinkV4"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AsyncTaskLinkV4"
+                  }
+                ],
+                "description": "URL to cancel the job. As with `result`, always call the returned URL directly rather than constructing it yourself -- it may redirect to a per-organization gateway host."
               },
               "result": {
-                "$ref": "#/components/schemas/AsyncTaskLinkV4"
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AsyncTaskLinkV4"
+                  }
+                ],
+                "description": "URL to poll for the job result -- see `GET /jobs/result/{jobId}`."
               }
             }
           },

@@ -45,6 +45,10 @@ Currently, the async operations include:
 * [Generate Object Composite Async](../../api/index.md)
 * [Generate Similar Images Async](../../api/index.md)
 
+<InlineAlert variant="info" slots="text" />
+
+The examples below use the `v3` `-async` endpoints. `Expand Image` and `Fill Image` are also available as `v4` endpoints at `POST /v4/images/expand` and `POST /v4/images/fill` -- note that the `v4` paths do **not** have an `-async` suffix (they are always asynchronous, so no separate suffix is needed), and their submit response differs from the `v3` shape shown below: poll the URL in the response's `links.result.url` field via [`GET /jobs/result/{jobId}`](../../api/index.md) rather than `statusUrl`. See the [API Reference](../../api/index.md) for the full `v4` request and response schemas.
+
 ## Sequence of Calls
 
 The workflow for each of these is the same:

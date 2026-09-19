@@ -45,6 +45,10 @@ Generatively edit specific areas of an image with the Fill Image API.
 | --- | --- | --- |
 | ![source-person-photo-1](../images/source-person-photo-1.png) | ![mask-person-photo-1](../images/mask-person-photo-1.png) | ![result-person-photo-1](../images/result-person-photo-1.jpeg)
 
+<InlineAlert variant="info" slots="text" />
+
+This tutorial calls the `v3` `POST /v3/images/fill` endpoint. A `v4` version is also available at `POST /v4/images/fill` -- note that unlike `v3`, `v4` is always asynchronous and its request/response shapes differ. See the [API Reference](../../api/index.md) for the current `v4` schema, and the [Async API guide](../how-tos/using-async-apis.md) for how to poll `v4` jobs.
+
 ## Overview
 
 In this tutorial, let's imagine we manage the website of a company and we need to update thousands of employee photos on the website to have a consistent, tasteful, and professional look. Using the Fill Image API, we'll replace the backgrounds of all the employee photos with a similar style.

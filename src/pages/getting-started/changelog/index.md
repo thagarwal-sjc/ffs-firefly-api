@@ -38,6 +38,18 @@ twitter:
 [//]: # (TODO: Update with latest prod details, elaborate on API descriptions)
 # Changelog
 
+## August 31, 2026
+
+**API updates**
+
+* **Launch of v4 Generative Expand and Fill**: `POST /v4/images/expand` and `POST /v4/images/fill` are now available.
+  * [Expand Image API](../../api/index.md)
+  * [Fill Image API](../../api/index.md)
+
+> **Note:** Unlike the v3 equivalents, these v4 endpoints do **not** have an `-async` suffix -- `POST /v4/images/expand-async` and `POST /v4/images/fill-async` are not valid routes and return `404`. `POST /v4/images/expand` and `POST /v4/images/fill` are the only v4 paths for these operations, and both are always asynchronous (submit, then poll for the result).
+>
+> To check job status or retrieve the result, always call the URL returned in the submit response's `links.result.url` (or `.href`) field -- see [`GET /jobs/result/{jobId}`](../../api/index.md). The submit response redirects polling to a per-organization gateway host (e.g. `https://firefly-epo<org-id>.adobe.io/...`), which differs from both the host you submitted the job to and the `statusUrl` field. `statusUrl` is informational only and should not be polled directly.
+
 ## April 24, 2026
 
 ### Upscale API: Beta to GA (Breaking Change)

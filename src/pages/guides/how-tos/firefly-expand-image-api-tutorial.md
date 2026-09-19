@@ -41,6 +41,10 @@ Generatively expand an image out beyond its edges with the Expand Image API.
 
 ![wallet advertisement hero image](../images/expand-image-tutorial-hero-image.jpeg)
 
+<InlineAlert variant="info" slots="text" />
+
+This tutorial calls the `v3` `POST /v3/images/expand-async` endpoint. A `v4` version is also available at `POST /v4/images/expand` -- note that it has no `-async` suffix (it's always asynchronous) and its request/response shapes differ from `v3`. See the [API Reference](../../api/index.md) for the current `v4` schema, and the [Async API guide](../how-tos/using-async-apis.md) for how to poll `v4` jobs.
+
 ## Overview
 
 In this tutorial, imagine we are working on a marketing campaign at a Fortune 100 company, and we need to create differently sized image variations optimized for various social media platforms. In the past we had to manually resize images for each platform, which was time-consuming and error-prone. With Firefly's Expand Image API, we can automate this process and generate multiple variations of images with dimensions optimized for platforms like Instagram, Facebook, Twitter, and more.
