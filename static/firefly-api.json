@@ -2604,7 +2604,7 @@
       "post": {
         "operationId": "expandImagesV4",
         "summary": "Expand image (v4)",
-        "description": "Change the aspect ratio or size of an image to expand it. Optionally, provide a text prompt to generate additional imagery for the expansion.\n\n**Note:** unlike `/v3/images/expand-async`, this endpoint does **not** have an `-async` suffix -- `POST /v4/images/expand-async` is not a valid route and returns 404. This is the only v4 path for this operation, and it is always asynchronous (submit, then poll for the result).",
+        "description": "Asynchronous Expand. Supply a prepared canvas and mask, or after deployment an original image with optional size and placement. Maskless mode defaults to a centered 2048-square canvas and does not detect existing white padding. Confirm placement-mode availability before use. Do not append -async to this route. Poll returned links.result.url.",
         "tags": [
           "Common Operations"
         ],
@@ -5392,7 +5392,8 @@
         "type": "object",
         "title": "InputV4",
         "required": [
-          "image"
+          "image",
+          "mask"
         ],
         "properties": {
           "image": {
@@ -5434,18 +5435,16 @@
         ],
         "properties": {
           "input": {
-            "$ref": "#/components/schemas/InputV4",
-            "description": "Input image and mask to expand"
+            "$ref": "#/components/schemas/ExpandInputV4"
           },
           "embedContentCredentials": {
             "type": "boolean",
-            "default": false,
-            "description": "When true, applies CAI/C2PA signing to output images."
+            "description": "Explicit true/false requests or disables Content Credentials. If omitted, the default is service-configured. Signing depends on service availability. Placement mode retains the original image as provenance, not a user-supplied mask."
           },
           "prompt": {
             "type": "string",
             "default": "",
-            "description": "User prompt"
+            "description": "Inherited field; the current Expand adapter does not forward prompt guidance to the model."
           },
           "seeds": {
             "type": "array",
@@ -5498,8 +5497,51 @@
             "type": "boolean",
             "default": false,
             "description": "Enable genexpand-only pixel-composite resize and decode enhancements"
+          },
+          "size": {
+            "$ref": "#/components/schemas/ExpandSizeV4"
+          },
+          "placement": {
+            "$ref": "#/components/schemas/ExpandPlacementV4"
           }
-        }
+        },
+        "description": "After deployment, omit input.mask to use placement mode. Defaults: 2048 x 2048, center alignment, zero insets. No white-border or transparency detection. With input.mask, omit size and placement. Confirm availability with Adobe.",
+        "oneOf": [
+          {
+            "properties": {
+              "input": {
+                "required": [
+                  "mask"
+                ]
+              }
+            },
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "size"
+                  ]
+                },
+                {
+                  "required": [
+                    "placement"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "properties": {
+              "input": {
+                "not": {
+                  "required": [
+                    "mask"
+                  ]
+                }
+              }
+            }
+          }
+        ]
       },
       "FillImageRequestV4": {
         "type": "object",
@@ -5514,8 +5556,7 @@
           },
           "embedContentCredentials": {
             "type": "boolean",
-            "default": false,
-            "description": "When true, applies CAI/C2PA signing to output images."
+            "description": "Explicit true/false requests or disables Content Credentials. If omitted, the default is service-configured. Signing depends on service availability."
           },
           "prompt": {
             "type": "string",
@@ -5684,6 +5725,101 @@
             "items": {
               "$ref": "#/components/schemas/OutputImageV4"
             }
+          }
+        }
+      },
+      "ExpandInputV4": {
+        "type": "object",
+        "title": "ExpandInputV4",
+        "required": [
+          "image"
+        ],
+        "properties": {
+          "image": {
+            "$ref": "#/components/schemas/ImageV4",
+            "description": "Input image"
+          },
+          "mask": {
+            "$ref": "#/components/schemas/ImageV4",
+            "description": "Input mask"
+          }
+        },
+        "description": "Explicit-mask mode or, after service deployment, maskless placement mode."
+      },
+      "ExpandSizeV4": {
+        "type": "object",
+        "properties": {
+          "width": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4000,
+            "default": 2048
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4000,
+            "default": 2048
+          }
+        }
+      },
+      "ExpandAlignmentV4": {
+        "type": "object",
+        "properties": {
+          "horizontal": {
+            "type": "string",
+            "enum": [
+              "left",
+              "center",
+              "right"
+            ],
+            "default": "center"
+          },
+          "vertical": {
+            "type": "string",
+            "enum": [
+              "top",
+              "center",
+              "bottom"
+            ],
+            "default": "center"
+          }
+        }
+      },
+      "ExpandInsetV4": {
+        "type": "object",
+        "properties": {
+          "left": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "top": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "right": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "bottom": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        }
+      },
+      "ExpandPlacementV4": {
+        "type": "object",
+        "description": "Minimum insets and alignment for contain-fit without cropping or upscaling. Available width/height must each be at least min(canvas width, canvas height, 20) pixels. Resizing must retain a source pixel per dimension and leave some area to generate.",
+        "properties": {
+          "alignment": {
+            "$ref": "#/components/schemas/ExpandAlignmentV4"
+          },
+          "inset": {
+            "$ref": "#/components/schemas/ExpandInsetV4"
           }
         }
       }

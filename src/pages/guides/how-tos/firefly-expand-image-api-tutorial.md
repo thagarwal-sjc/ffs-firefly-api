@@ -47,6 +47,10 @@ This tutorial calls the `v3` `POST /v3/images/expand-async` endpoint. A `v4` ver
 
 ## Overview
 
+For the deployment-dependent v4 placement capability, see
+[Generative Expand v4: masks and placement](firefly-expand-v4-placement.md).
+It retains v4's nested input syntax while adding v3-style canvas construction.
+
 In this tutorial, imagine we are working on a marketing campaign at a Fortune 100 company, and we need to create differently sized image variations optimized for various social media platforms. In the past we had to manually resize images for each platform, which was time-consuming and error-prone. With Firefly's Expand Image API, we can automate this process and generate multiple variations of images with dimensions optimized for platforms like Instagram, Facebook, Twitter, and more.
 
 Before diving into the code, let's preview the high-level steps:
